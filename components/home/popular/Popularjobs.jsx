@@ -5,13 +5,15 @@ import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from "react
 import styles from './popularjobs.style';
 import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
-// import useFetch from "../../../hook/useFetch";
+import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
 
   const router = useRouter();
-  const isLoading = false;
-  const error = false;
+  const { data, isLoading, error } = useFetch('search', {
+    query: 'React developer',
+    num_pages: 1
+  });
 
   return (
     <View style={styles.container}>
@@ -28,17 +30,17 @@ const Popularjobs = () => {
           <Text>Something went wrong</Text>
         ) : (
           <FlatList
-            data={[1,2,3,4,5]}
+            data={[1, 2, 3, 4, 5]}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}
-                // selectedJob={selectedJob}
-                // handleCardPress={handleCardPress}
-                />
+              // selectedJob={selectedJob}
+              // handleCardPress={handleCardPress}
+              />
             )}
             keyExtractor={item => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
-            horizontal/>
+            horizontal />
         )}
       </View>
     </View>
