@@ -25,11 +25,11 @@ const useFetch = (endpoint, query) => {
       setIsLoading(false);
     } catch (error) {
       setError(error);
-      alert('error is occured');
+      console.log(error)
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -39,8 +39,8 @@ const useFetch = (endpoint, query) => {
   const refetch = () => {
     setIsLoading(true);
     fetchData();
-  }
+  };
   return { data, isLoading, error, refetch };
-}
+};
 
 export default useFetch;
