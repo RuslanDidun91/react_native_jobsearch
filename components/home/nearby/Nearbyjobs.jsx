@@ -39,7 +39,7 @@ const Nearbyjobs = () => {
         )}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Nearbyjobs
+export default Nearbyjobs;

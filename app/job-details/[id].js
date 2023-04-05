@@ -31,14 +31,14 @@ const JobDetails = () => {
     job_id: params.id,
   });
 
-  console.log(data)
-
-  const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = () => {
-
-  }
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, []);
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -82,14 +82,18 @@ const JobDetails = () => {
               handlePress={() => router.back()}
             />
           ),
-          headerRight: () => (<ScreenHeaderBtn iconUrl={icons.share} dimension='60%' />),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={icons.share} dimension='60%' />
+          ),
           headerTitle: "",
         }}
       />
+
       <>
         <ScrollView showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        >
           {isLoading ? (
             <ActivityIndicator size='large' color={COLORS.primary} />
           ) : error ? (
@@ -104,16 +108,19 @@ const JobDetails = () => {
                 companyName={data[0].employer_name}
                 location={data[0].job_country}
               />
+
               <JobTabs
                 tabs={tabs}
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
               />
+
               {displayTabContent()}
             </View>
           )}
         </ScrollView>
-        <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results'} />
+
+        <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results/'} />
       </>
     </SafeAreaView>
   );

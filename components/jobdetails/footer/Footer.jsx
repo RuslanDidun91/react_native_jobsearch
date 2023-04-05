@@ -5,7 +5,7 @@ import { icons } from '../../../constants';
 const Footer = ({ url }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.likeBtn}>
         <Image
           source={icons.heartOutline}
           resizeMode='contain'
@@ -13,9 +13,11 @@ const Footer = ({ url }) => {
         />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.applyBtn}
-        onPress={() => Linking.openURL(url)}>
-        <Text style={styles.applyBtnText}>Apply For this Job</Text>
+      <TouchableOpacity
+        style={styles.applyBtn}
+        onPress={() => Linking.openURL(url)}
+      >
+        <Text style={styles.applyBtnText}>Apply for job</Text>
       </TouchableOpacity>
     </View>
   );
